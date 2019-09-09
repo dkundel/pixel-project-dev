@@ -1,0 +1,24 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: scroll;
+}
+
+main {
+  background: black;
+  max-width: 100vw;
+  max-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+main > svg {
+  max-height: 100vh;
+  max-width: 100vw;
+  padding: 20px;
+}

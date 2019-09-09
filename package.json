@@ -1,0 +1,25 @@
+{
+  "name": "pixel-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/twilio-labs/pixel-project.git"
+  },
+  "keywords": [],
+  "author": "Dominik Kundel <dkundel@twilio.com> (https://twilio.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/twilio-labs/pixel-project/issues"
+  },
+  "homepage": "https://github.com/twilio-labs/pixel-project#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^0.9.0",
+    "jest": "^24.9.0",
+    "tailwindcss": "^1.1.2"
+  }
+}

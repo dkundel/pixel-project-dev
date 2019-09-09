@@ -1,1 +1,7 @@
-# pixel-project-dev
+# Pixel Project
+
+About the pixel project
+
+## License
+
+MIT

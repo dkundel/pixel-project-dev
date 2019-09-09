@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Pixel Project</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <main>
+      <svg viewbox="0 0 {{defaults.image.width * defaults.image.scale}} {{defaults.image.height * defaults.image.scale}}">
+        <rect x="0" y="0" width="100%" height="100%" style="fill: {{defaults.image.background}}" />
+        {% for pixel in pixels.data %}
+          {% if pixel.color %}
+            <rect x={{pixel.x * defaults.image.scale}} y={{(defaults.image.height - pixel.y - 1) * defaults.image.scale}} width="{{defaults.image.scale}}" height="{{defaults.image.scale}}" style="fill: {{pixel.color}}" />
+          {% elif pixel.tileName %}
+            <image xlink:href="assets/tiles/{{pixel.tileName}}.png" width="{{defaults.image.scale * 5}}" height="{{defaults.image.scale * 5}}" x="{{pixel.x * defaults.image.scale}}" y="{{(defaults.image.height - pixel.y - 5) * defaults.image.scale }}"/>
+          {% endif %}
+        {% endfor %}
+        {% if env.isLocal %}
+          <!-- Lines for debug purposes -->
+          {% for horizontal in range(0, defaults.image.width / 10) %}
+            <line x1={{horizontal * 10 * defaults.image.scale}} x2={{horizontal * 10 * defaults.image.scale}}  y1=0 y2={{defaults.image.height * defaults.image.scale}} stroke-width=1 stroke="#555"/>
+          {% endfor %}
+          <line x1={{defaults.image.width * defaults.image.scale}} x2={{defaults.image.width * defaults.image.scale}}  y1=0 y2={{defaults.image.height * defaults.image.scale}} stroke-width=1 stroke="#555"/>
+          {% for vertical in range(0, defaults.image.height / 10) %}
+            <line y1={{vertical * 10 * defaults.image.scale}} y2={{vertical * 10 * defaults.image.scale}}  x1=0 x2={{defaults.image.width * defaults.image.scale}} stroke-width=1 stroke="#555"/>
+          {% endfor %}
+          <line y1={{defaults.image.height * defaults.image.scale}} y2={{defaults.image.height * defaults.image.scale}}  x1=0 x2={{defaults.image.width * defaults.image.scale}} stroke-width=1 stroke="#555"/>
+        {% endif %}
+      </svg>
+    </main>
+  </body>
+</html>
