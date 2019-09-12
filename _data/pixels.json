@@ -41,7 +41,7 @@
     { "x": 185, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
     { "x": 190, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
     { "x": 195, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
-    { "x": 200, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
+    { "x": 19, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
     { "x": 20, "y": 19, "tileName": "ground_stone", "username": "dkundel" },
     { "x": 20, "y": 5, "tileName": "character/front", "username": "<UNCLAIMED>" }
   ]
