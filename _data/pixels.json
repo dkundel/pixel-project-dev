@@ -1,6 +1,6 @@
 {
   "data": [
-    { "x": 20, "y": 20, "color": "#F0F", "username": "dkundel" },
+    { "x": 20, "y": 20, "color": "#F0F", "username": "<UNCLAIMED>" },
     { "x": 0, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
     { "x": 5, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
     { "x": 10, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
@@ -42,9 +42,7 @@
     { "x": 190, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
     { "x": 195, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
     { "x": 200, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
-
     { "x": 50, "y": 50, "tileName": "crate", "username": "dkundel" },
-    
     { "x": 20, "y": 5, "tileName": "character/front", "username": "<UNCLAIMED>" }
   ]
 }
