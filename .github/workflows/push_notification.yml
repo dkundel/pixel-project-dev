@@ -1,4 +1,4 @@
-name: 'Push Notification'
+name: 'Push Notification via SMS'
 
 on: [push]
 
