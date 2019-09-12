@@ -33,7 +33,7 @@ function handleMultipleFileChanges() {
 
 function handleSuccessfulSubmission() {
   message('Thank you so much for contributing your pixel! 💖');
-  danger.github.utils.createOrAddLabel({
+  return danger.github.utils.createOrAddLabel({
     name: 'pixel-contribution',
     description: `Only changes the pixels.json file. Can be auto-merged`,
     color: '36D576'
@@ -56,15 +56,47 @@ async function evaluatePixelChanges() {
           .value.tileName || linePatch.value.color} pixel!
       `);
     } else if (linePatch.op === 'remove') {
+      // a pixel has been removed
+
       fail(
         `I'm sorry but you can't remove a pixel that someone else contributed`
       );
-    } else if (linePatch.op === 'replace') {
+    } else if (linePatch.op === 'replace' || linePatch.op === 'test') {
       isValidPixelUpdate(patch, linePatch);
+    } else {
+      fail(
+        `I'm sorry but you can only contribute one pixel per GitHub username.`
+      );
     }
   } else {
-    // TODO
+    if (!allPatchesAreForTheSamePixel) {
+      return;
+    } else {
+      isValidPixelUpdate(patch, patch.diff[0]);
+    }
   }
+}
+
+function getIndexFromPath(diffPath) {
+  return Number(diffPath.replace('/data/', '').match(/^\d*/)[0]);
+}
+
+function allPatchesAreForTheSamePixel(diffs) {
+  let currentPixelIndex = undefined;
+  for (let diff of diffs) {
+    const idx = getIndexFromPath(diff.path);
+    if (typeof currentPixelIndex === 'undefined') {
+      currentPixelIndex = idx;
+    }
+
+    if (currentPixelIndex !== idx) {
+      fail(
+        'Please make sure all of your changes are on the same line and that you are only modifying one row.'
+      );
+      return false;
+    }
+  }
+  return true;
 }
 
 function isValidPixelUpdate(patch, specificDiff) {
@@ -75,9 +107,6 @@ function isValidPixelUpdate(patch, specificDiff) {
     .replace(/\//g, '.');
   const propertyName = specificDiff.path.substr(lastSlash + 1);
   const newEntry = dotProp.get(patch.after, normalizedPath);
-
-  console.log('Normalized path', normalizedPath);
-  console.log('newEntry', newEntry);
 
   if (propertyName === 'username') {
     const oldEntry = dotProp.get(patch.before, normalizedPath);
@@ -135,6 +164,7 @@ async function run() {
   if (!hasOnlyPixelChanges) {
   } else {
     await evaluatePixelChanges();
+    await handleSuccessfulSubmission();
   }
 }
 
