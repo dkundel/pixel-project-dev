@@ -8,7 +8,7 @@ jobs:
     name: Send an SMS
     steps:
       - name: Sending SMS
-        uses: twilio-labs/action-sms@master
+        uses: twilio-labs/actions-sms@master
         with:
           fromPhoneNumber: ${{ secrets.TWILIO_NUMBER }}
           toPhoneNumber: ${{ secrets.PERSONAL_NUMBER }}
