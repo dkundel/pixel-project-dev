@@ -42,7 +42,6 @@ function handleSuccessfulSubmission() {
 
 async function evaluatePixelChanges() {
   const patch = await danger.git.JSONPatchForFile('_data/pixels.json');
-  console.dir(patch.diff);
   if (patch.diff.length === 1) {
     // Only one pixel has been modified
 
@@ -50,31 +49,35 @@ async function evaluatePixelChanges() {
     if (linePatch.op === 'add') {
       // a new pixel has been added
 
-      if (isValidNewPixelSubmission(linePatch.value))
-        message(stripIndent`
-        Thank you ${linePatch.value.username} for contributing a ${linePatch
-          .value.tileName || linePatch.value.color} pixel!
-      `);
+      if (isValidNewPixelSubmission(linePatch.value)) {
+        return true;
+      }
+      //   message(stripIndent`
+      //   Thank you ${linePatch.value.username} for contributing a ${linePatch
+      //     .value.tileName || linePatch.value.color} pixel!
+      // `);
     } else if (linePatch.op === 'remove') {
       // a pixel has been removed
 
       fail(
         `I'm sorry but you can't remove a pixel that someone else contributed`
       );
+      return false;
     } else if (linePatch.op === 'replace' || linePatch.op === 'test') {
-      isValidPixelUpdate(patch, linePatch);
+      return isValidPixelUpdate(patch, linePatch);
     } else {
       fail(
         `I'm sorry but you can only contribute one pixel per GitHub username.`
       );
     }
   } else {
-    if (!allPatchesAreForTheSamePixel) {
-      return;
+    if (!allPatchesAreForTheSamePixel(patch.diff)) {
+      return false;
     } else {
-      isValidPixelUpdate(patch, patch.diff[0]);
+      return isValidPixelUpdate(patch, patch.diff[0]);
     }
   }
+  return false;
 }
 
 function getIndexFromPath(diffPath) {
@@ -157,14 +160,19 @@ function isValidNewPixelSubmission(pixel) {
 }
 
 async function run() {
-  const hasOnlyPixelChanges =
-    danger.git.modified_files.length === 1 &&
-    danger.git.modified_files[0] === '_data/pixels.json';
+  if (danger.github.thisPR) {
+    const hasOnlyPixelChanges =
+      danger.git.modified_files.length === 1 &&
+      danger.git.modified_files[0] === '_data/pixels.json';
 
-  if (!hasOnlyPixelChanges) {
-  } else {
-    await evaluatePixelChanges();
-    await handleSuccessfulSubmission();
+    if (!hasOnlyPixelChanges) {
+      await handleMultipleFileChanges();
+    } else {
+      const passed = await evaluatePixelChanges();
+      if (passed) {
+        await handleSuccessfulSubmission();
+      }
+    }
   }
 }
 
