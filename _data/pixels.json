@@ -43,7 +43,7 @@
     { "x": 195, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
     { "x": 200, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
     { "x": 50, "y": 50, "tileName": "crate", "username": "dkundel" },
-    { "x": 50, "y": 80, "tileName": "cloud_1", "username": "someone" },
+    { "x": 50, "y": 80, "tileName": "cloud_1", "username": "dkundel" },
     { "x": 20, "y": 5, "tileName": "character/front", "username": "<UNCLAIMED>" }
   ]
 }
