@@ -24,20 +24,20 @@ function handleMultipleFileChanges() {
     If you *didn't* do this on purpose, check out https://dangitgit.com/ or
     other resources on how you can revert the remaining changes.
   `);
-  danger.github.utils.createOrAddLabel({
-    name: 'needs-manual-review',
-    description: `Changes that don't just modify the pixels.json need manual reviews`,
-    color: 'F22F46'
-  });
+  // danger.github.utils.createOrAddLabel({
+  //   name: 'needs-manual-review',
+  //   description: `Changes that don't just modify the pixels.json need manual reviews`,
+  //   color: 'F22F46'
+  // });
 }
 
 function handleSuccessfulSubmission() {
   message('Thank you so much for contributing your pixel! 💖');
-  return danger.github.utils.createOrAddLabel({
-    name: 'pixel-contribution',
-    description: `Only changes the pixels.json file. Can be auto-merged`,
-    color: '36D576'
-  });
+  // return danger.github.utils.createOrAddLabel({
+  //   name: 'pixel-contribution',
+  //   description: `Only changes the pixels.json file. Can be auto-merged`,
+  //   color: '36D576'
+  // });
 }
 
 async function evaluatePixelChanges() {
@@ -163,7 +163,9 @@ async function run() {
   if (danger.github.thisPR) {
     const hasOnlyPixelChanges =
       danger.git.modified_files.length === 1 &&
-      danger.git.modified_files[0] === '_data/pixels.json';
+      danger.git.modified_files[0] === '_data/pixels.json' &&
+      danger.git.created_files.length === 0 &&
+      danger.git.deleted_files.length === 0;
 
     if (!hasOnlyPixelChanges) {
       await handleMultipleFileChanges();
