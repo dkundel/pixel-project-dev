@@ -20,6 +20,6 @@ jobs:
         env:
           CI: true
       - name: Danger
-        run: npx danger ci --text-only
+        run: npx danger ci --text-only -f
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
