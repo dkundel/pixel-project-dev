@@ -16,6 +16,8 @@ function handleMultipleFileChanges() {
 
     The files you modified are:
     ${danger.git.modified_files.map(name => `- ${name}`).join('\n')}
+    ${danger.git.created_files.map(name => `- ${name}`).join('\n')}
+    ${danger.git.deleted_files.map(name => `- ${name}`).join('\n')}
 
     If you did this on purpose, please consider breaking your PR into multiple ones.
     This will help us to auto-verify your pixels change and someone will take a
