@@ -2,7 +2,7 @@ const { message, fail, markdown, danger } = require('danger');
 const { stripIndent } = require('common-tags');
 const dotProp = require('dot-prop');
 
-function handleMultipleFileChanges() {
+function handleMultipleFileChanges(gitChanges) {
   fail(
     'This PR requires a manual review because you are changing more files than just `_data/pixels.json`.'
   );
@@ -15,9 +15,9 @@ function handleMultipleFileChanges() {
     this PR than just the \`_data/pixels.json\` file.
 
     The files you modified are:
-    ${danger.git.modified_files.map(name => `- ${name}`).join('\n')}
-    ${danger.git.created_files.map(name => `- ${name}`).join('\n')}
-    ${danger.git.deleted_files.map(name => `- ${name}`).join('\n')}
+    ${gitChanges.modified_files.map(name => `- ${name}`).join('\n')}
+    ${gitChanges.created_files.map(name => `- ${name}`).join('\n')}
+    ${gitChanges.deleted_files.map(name => `- ${name}`).join('\n')}
 
     If you did this on purpose, please consider breaking your PR into multiple ones.
     This will help us to auto-verify your pixels change and someone will take a
@@ -42,16 +42,16 @@ function handleSuccessfulSubmission() {
   // });
 }
 
-async function evaluatePixelChanges() {
-  const patch = await danger.git.JSONPatchForFile('_data/pixels.json');
-  if (patch.diff.length === 1) {
+async function evaluatePixelChanges(jsonPatch) {
+  const gitHubUsername = danger.github.pr.user.login;
+  if (jsonPatch.diff.length === 1) {
     // Only one pixel has been modified
 
-    const linePatch = patch.diff[0];
+    const linePatch = jsonPatch.diff[0];
     if (linePatch.op === 'add') {
       // a new pixel has been added
 
-      if (isValidNewPixelSubmission(linePatch.value)) {
+      if (isValidNewPixelSubmission(linePatch.value, gitHubUsername)) {
         return true;
       }
       //   message(stripIndent`
@@ -66,24 +66,24 @@ async function evaluatePixelChanges() {
       );
       return false;
     } else if (linePatch.op === 'replace' || linePatch.op === 'test') {
-      return isValidPixelUpdate(patch, linePatch);
+      return isValidPixelUpdate(jsonPatch, linePatch, gitHubUsername);
     } else {
       fail(
         `I'm sorry but you can only contribute one pixel per GitHub username.`
       );
     }
   } else {
-    if (!allPatchesAreForTheSamePixel(patch.diff)) {
+    if (!allPatchesAreForTheSamePixel(jsonPatch.diff)) {
       return false;
     } else {
-      return isValidPixelUpdate(patch, patch.diff[0]);
+      return isValidPixelUpdate(jsonPatch, jsonPatch.diff[0], gitHubUsername);
     }
   }
   return false;
 }
 
 function getIndexFromPath(diffPath) {
-  return Number(diffPath.replace('/data/', '').match(/^\d*/)[0]);
+  return parseInt(diffPath.replace('/data/', '').match(/^\d*/)[0], 10);
 }
 
 function allPatchesAreForTheSamePixel(diffs) {
@@ -104,8 +104,7 @@ function allPatchesAreForTheSamePixel(diffs) {
   return true;
 }
 
-function isValidPixelUpdate(patch, specificDiff) {
-  const gitHubUsername = danger.github.pr.user.login;
+function isValidPixelUpdate(patch, specificDiff, gitHubUsername) {
   const lastSlash = specificDiff.path.lastIndexOf('/');
   const normalizedPath = specificDiff.path
     .substr(1, lastSlash - 1)
@@ -126,53 +125,59 @@ function isValidPixelUpdate(patch, specificDiff) {
     }
   }
 
-  return isValidNewPixelSubmission(newEntry);
+  return isValidNewPixelSubmission(newEntry, gitHubUsername);
 }
 
-function isValidNewPixelSubmission(pixel) {
-  const gitHubUsername = danger.github.pr.user.login;
+function isValidNewPixelSubmission(pixel, gitHubUsername) {
+  let result = true; 
+
   if (pixel.username !== gitHubUsername) {
     fail(
       `The username in your pixel submission needs to match your username of "${gitHubUsername}". You submitted "${pixel.username}" instead.`
     );
-    return false;
+    result = false;
   }
 
   if (!pixel.tileName && !pixel.color) {
     fail(
       `Please specify either a color using \`color: '#000000\` or a tile name using \`tileName: 'ground'\` in your pixel.`
     );
-    return false;
+    result = false;
   }
 
   if (typeof pixel.x !== 'number' || pixel.x < 0) {
     fail(
       'Please make sure your pixel submission has a valid positive `x` coordinate as a number.'
     );
-    return false;
+    result = false;
   }
 
   if (typeof pixel.y !== 'number' || pixel.y < 0) {
     fail(
       'Please make sure your pixel submission has a valid positive `y` coordinate as a number.'
     );
-    return false;
+    result = false;
   }
-  return true;
+  
+  return result;
+}
+
+function hasOnlyPixelChanges(gitChanges) {
+  return (
+    gitChanges.modified_files.length === 1 &&
+    gitChanges.modified_files[0] === '_data/pixels.json' &&
+    gitChanges.created_files.length === 0 &&
+    gitChanges.deleted_files.length === 0
+  );
 }
 
 async function run() {
   if (danger.github.thisPR) {
-    const hasOnlyPixelChanges =
-      danger.git.modified_files.length === 1 &&
-      danger.git.modified_files[0] === '_data/pixels.json' &&
-      danger.git.created_files.length === 0 &&
-      danger.git.deleted_files.length === 0;
-
-    if (!hasOnlyPixelChanges) {
+    if (!hasOnlyPixelChanges(danger.git)) {
       await handleMultipleFileChanges();
     } else {
-      const passed = await evaluatePixelChanges();
+      const jsonPatch = await danger.git.JSONPatchForFile('_data/pixels.json');
+      const passed = await evaluatePixelChanges(jsonPatch);
       if (passed) {
         await handleSuccessfulSubmission();
       }
@@ -181,3 +186,14 @@ async function run() {
 }
 
 run().catch(console.error);
+
+module.exports = {
+  allPatchesAreForTheSamePixel,
+  evaluatePixelChanges,
+  getIndexFromPath,
+  handleMultipleFileChanges,
+  handleSuccessfulSubmission,
+  hasOnlyPixelChanges,
+  isValidNewPixelSubmission,
+  isValidPixelUpdate
+};
