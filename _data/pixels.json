@@ -3,7 +3,7 @@
     { "x": 20, "y": 20, "color": "#F0F", "username": "<UNCLAIMED>" },
     { "x": 0, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
     { "x": 5, "y": 0, "tileName": "#FF00FF", "username": "dkundel" },
-    { "x": 10, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
+    { "x": 10, "y": 0, "tileName": "#FF0000", "username": "dkundel" },
     { "x": 15, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
     { "x": 20, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
     { "x": 25, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
