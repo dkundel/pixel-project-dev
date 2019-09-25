@@ -26,20 +26,10 @@ function handleMultipleFileChanges(gitChanges) {
     If you *didn't* do this on purpose, check out https://dangitgit.com/ or
     other resources on how you can revert the remaining changes.
   `);
-  // danger.github.utils.createOrAddLabel({
-  //   name: 'needs-manual-review',
-  //   description: `Changes that don't just modify the pixels.json need manual reviews`,
-  //   color: 'F22F46'
-  // });
 }
 
 function handleSuccessfulSubmission() {
   message('Thank you so much for contributing your pixel! 💖');
-  // return danger.github.utils.createOrAddLabel({
-  //   name: 'pixel-contribution',
-  //   description: `Only changes the pixels.json file. Can be auto-merged`,
-  //   color: '36D576'
-  // });
 }
 
 async function evaluatePixelChanges(jsonPatch) {
@@ -54,10 +44,6 @@ async function evaluatePixelChanges(jsonPatch) {
       if (isValidNewPixelSubmission(linePatch.value, gitHubUsername)) {
         return true;
       }
-      //   message(stripIndent`
-      //   Thank you ${linePatch.value.username} for contributing a ${linePatch
-      //     .value.tileName || linePatch.value.color} pixel!
-      // `);
     } else if (linePatch.op === 'remove') {
       // a pixel has been removed
 
@@ -129,7 +115,7 @@ function isValidPixelUpdate(patch, specificDiff, gitHubUsername) {
 }
 
 function isValidNewPixelSubmission(pixel, gitHubUsername) {
-  let result = true; 
+  let result = true;
 
   if (pixel.username !== gitHubUsername) {
     fail(
@@ -138,9 +124,9 @@ function isValidNewPixelSubmission(pixel, gitHubUsername) {
     result = false;
   }
 
-  if (!pixel.tileName && !pixel.color) {
+  if (!pixel.color) {
     fail(
-      `Please specify either a color using \`color: '#000000\` or a tile name using \`tileName: 'ground'\` in your pixel.`
+      `Please specify either a color using \`color: '#000000\` in your pixel.`
     );
     result = false;
   }
@@ -158,7 +144,7 @@ function isValidNewPixelSubmission(pixel, gitHubUsername) {
     );
     result = false;
   }
-  
+
   return result;
 }
 

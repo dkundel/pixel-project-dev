@@ -138,7 +138,7 @@ describe('isValidNewPixelSubmission', () => {
     expect(isValidNewPixelSubmission(pixel, 'dkundel')).toBe(false);
   });
 
-  test('fails if both color and tileName is missing', () => {
+  test('fails if color is missing', () => {
     const pixel = {
       username: 'twilio',
       x: 0,
@@ -201,16 +201,6 @@ describe('isValidNewPixelSubmission', () => {
     const pixel = {
       username: 'dkundel',
       color: '#ff0000',
-      y: 0,
-      x: 0
-    };
-    expect(isValidNewPixelSubmission(pixel, 'dkundel')).toBe(true);
-  });
-
-  test('succeeds for valid tileName pixel', () => {
-    const pixel = {
-      username: 'dkundel',
-      tileName: 'cloud',
       y: 0,
       x: 0
     };
