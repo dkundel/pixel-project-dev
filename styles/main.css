@@ -51,6 +51,10 @@ main > section {
   max-width: 800px;
 }
 
+.nes-container.is-dark {
+  margin-bottom: 20px;
+}
+
 footer p {
   font-family: 'Press Start 2P', cursive;
   font-size: 0.8em;
@@ -76,4 +80,8 @@ p code {
 
 .twilio-link {
   color: #f22f46;
+}
+
+.screenreader-only {
+  display: none;
 }
