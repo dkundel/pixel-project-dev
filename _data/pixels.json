@@ -1,14 +1,22 @@
 {
   "data": [
-    { "x": 20, "y": 20, "color": "#F0F", "username": "<UNCLAIMED>" },
-    { "x": 0, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
-    { "x": 5, "y": 0, "tileName": "#FF00FF", "username": "dkundel" },
-    { "x": 10, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
-    { "x": 15, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
-    { "x": 20, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
-    { "x": 25, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
-    { "x": 30, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
-    { "x": 35, "y": 0, "tileName": "ground", "username": "<UNCLAIMED>" },
-    { "x": 20, "y": 5, "tileName": "character/front", "username": "<UNCLAIMED>" }
+    { "y": 1, "x": 3, "color": "#F22F46", "username": "<UNCLAIMED>" },
+    { "y": 1, "x": 4, "color": "#F22F46", "username": "<UNCLAIMED>" },
+    { "y": 1, "x": 5, "color": "#F22F46", "username": "<UNCLAIMED>" },
+    { "y": 1, "x": 6, "color": "#F22F46", "username": "<UNCLAIMED>" },
+    { "y": 3, "x": 1, "color": "#F22F46", "username": "<UNCLAIMED>" },
+    { "y": 3, "x": 3, "color": "#F22F46", "username": "<UNCLAIMED>" },
+    { "y": 3, "x": 6, "color": "#F22F46", "username": "<UNCLAIMED>" },
+    { "y": 3, "x": 8, "color": "#F22F46", "username": "<UNCLAIMED>" },
+    { "y": 4, "x": 1, "color": "#F22F46", "username": "<UNCLAIMED>" },
+    { "y": 4, "x": 8, "color": "#F22F46", "username": "<UNCLAIMED>" },
+    { "y": 5, "x": 1, "color": "#F22F46", "username": "<UNCLAIMED>" },
+    { "y": 5, "x": 3, "color": "#F22F46", "username": "<UNCLAIMED>" },
+    { "y": 5, "x": 6, "color": "#F22F46", "username": "<UNCLAIMED>" },
+    { "y": 5, "x": 8, "color": "#F22F46", "username": "<UNCLAIMED>" },
+    { "y": 7, "x": 3, "color": "#F22F46", "username": "<UNCLAIMED>" },
+    { "y": 7, "x": 4, "color": "#F22F46", "username": "<UNCLAIMED>" },
+    { "y": 7, "x": 5, "color": "#F22F46", "username": "<UNCLAIMED>" },
+    { "y": 7, "x": 6, "color": "#F22F46", "username": "<UNCLAIMED>" }
   ]
 }
