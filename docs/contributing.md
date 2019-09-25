@@ -1,6 +1,0 @@
----
-layout: docs.html
----
-
-# Contributing
-

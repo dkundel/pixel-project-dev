@@ -1,4 +1,6 @@
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
 }
 
@@ -9,16 +11,69 @@ body {
   overflow-x: scroll;
 }
 
+header {
+  text-align: center;
+}
+
+.nav-list {
+  list-style: none;
+  padding-left: 0;
+  padding: 20px;
+  padding-bottom: 0;
+}
+
+.nav-item {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
 main {
-  background: black;
-  max-width: 100vw;
-  max-height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+main > section {
+  width: 100%;
+}
+
+#canvas {
+  max-width: 800px;
+  max-height: 800px;
+  margin: 20px;
   display: flex;
   justify-content: center;
 }
 
-main > svg {
-  max-height: 100vh;
-  max-width: 100vw;
-  padding: 20px;
+.nes-container {
+  margin: 20px;
+  max-width: 800px;
+}
+
+footer p {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.8em;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Press Start 2P', cursive;
+}
+
+p {
+  font-family: 'Open Sans', sans-serif;
+}
+
+p code {
+  font-family: monospace;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.twilio-link {
+  color: #f22f46;
 }
