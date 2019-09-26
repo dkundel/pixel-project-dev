@@ -2,7 +2,7 @@ pull_request_rules:
   - name: automatic merge on CI success for pixel contributions
     conditions:
       - -conflict
-      - "status-success=Build"
+      - 'status-success=Build'
       - files=_data/pixels.json
       - '#files=1'
     actions:
@@ -10,17 +10,17 @@ pull_request_rules:
         method: squash
         strict: true
       label:
-        add: 
+        add:
           - 'hacktoberfest'
           - 'pixel-contribution'
   - name: create comment for failed CI
     conditions:
-      - "status-failure=Build"
+      - 'status-failure=Build'
     actions:
       comment:
         message: 'Unfortunately the automatic code review has failed. Please click the details button for more information.'
       label:
-        add: 
+        add:
           - 'hacktoberfest'
           - 'needs-help'
   - name: add label for review for more than one file change
