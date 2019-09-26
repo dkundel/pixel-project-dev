@@ -121,6 +121,65 @@ After making the code changes, please follow the steps outlined above.
 
 Once you open a pull request, make sure to uncomment the additional info section in the pull request template and add a description as well as reference any issues this is addressing.
 
+## Project Structure
+
+```
+pixel-project-dev
+├── .all-contributorsrc
+├── .eleventy.js
+├── .eleventyignore
+├── .git
+├── .github
+├── .gitignore
+├── .mergify.yml
+├── .prettierrc
+├── .vscode
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md
+├── __tests__
+├── _data
+├── assets
+├── dangerfile.js
+├── index.njk
+├── package-lock.json
+├── package.json
+└── styles
+```
+
+### `.eleventy.js` and `.eleventyignore`
+
+The project is powered by [Eleventy](https://11ty.io). These are the configuration files for the project
+
+### `.mergify.yml`
+
+The project uses Mergify to auto-merge certain PRs based on some conditions.
+
+### `__tests__`
+
+This directory contains all [Jest](https://jestjs.io)-powered unit tests
+
+### `_data`
+
+The `_data` directory contains the `pixels.json` file that represents every single pixel on the canvas, a `defaults.json` file that contains any default values like the size of the canvas, and the `env.js` file for any environment related values. All data will be automatically available in the `index.njk` file.
+
+### `assets`
+
+A directoy for any static assets.
+
+### `dangerfile.js`
+
+We use [Danger](https://danger.systems/js) to perform some code review checks. This file contains the logic for that.
+
+### `index.njk`
+
+This is the template file that is used to generate the HTML of the website.
+
+### `styles`
+
+This directory contains any custom CSS written. The styles for [`index.njk`](index.njk) are in [`styles/main.css`](styles/main.css)
+
 ## Code of Conduct
 
 We want to make sure that this project is as welcoming to people as possible. By interacting with the project in any shape or form you are agreeing to the project's [Code of Conduct](CODE_OF_CONDUCT.md). If you feel like another individual has violated the code of conduct, please raise a complaint to [open-source@twilio.com](mailto:open-source@twilio.com).
