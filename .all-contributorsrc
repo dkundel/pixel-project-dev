@@ -1,6 +1,6 @@
 {
-  "projectName": "open-pixel-art",
-  "projectOwner": "twilio-labs",
+  "projectName": "pixel-project-dev",
+  "projectOwner": "dkundel",
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
@@ -9,6 +9,16 @@
   "imageSize": 80,
   "commit": true,
   "commitConvention": "angular",
-  "contributors": [],
+  "contributors": [
+    {
+      "login": "for",
+      "name": "for",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/7262123?v=4",
+      "profile": "https://github.com/for",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
   "contributorsPerLine": 7
 }
