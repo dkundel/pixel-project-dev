@@ -25,7 +25,6 @@ header {
 
 .nav-item {
   display: inline-block;
-  margin-bottom: 10px;
 }
 
 main {
@@ -45,6 +44,15 @@ main > section {
   margin: 20px;
   display: flex;
   justify-content: center;
+}
+
+#canvas svg {
+  width: 100%;
+  height: 100%;
+}
+
+.nes-btn {
+  margin-bottom: 10px;
 }
 
 .nes-container {
